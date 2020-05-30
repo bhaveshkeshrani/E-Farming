@@ -1,0 +1,51 @@
+<?php 
+			//echo "done0";
+							//session_start();
+							$fid=$_SESSION['fid'];
+							$sql = "SELECT * FROM valve WHERE fid=$fid";
+							$result = mysql_query($sql);
+							if(!$result)
+							{
+								echo("Please try again later...");
+								
+							}
+							else
+							{
+									$count_rows = mysql_num_rows($result);
+									if($count_rows > 0)
+									{
+										 while($row = mysql_fetch_assoc($result))
+										 {
+        										$id=$row["vid"];
+												$desc=$row["desc"];
+												$btn=$row["status"];
+												//echo $btn;
+												if($btn==0)
+												{
+												$button="OFF";
+												$type="danger";
+												}
+												else
+												{
+												$button="ON";//ON;
+												$type="success";//success;
+												}
+												echo "<div class=\"media-body\">
+													<span class=\"text-muted pull-right\">
+													<a href='php/switchvalve.php?vid=$id&stat=$btn'><span class=\"badge badge-$type\" >$button</span></a>
+													<a href='php/removevalve.php?vid=$id'><span class=\"label label-danger\">REMOVE</span></a>
+													</span>
+													
+														<strong>VALVE </strong>
+														<p>$desc</p>";
+												
+										}
+									}
+									else
+									{	echo "No entry for valve was found..";
+									}
+							}
+							
+							
+							
+							?>
